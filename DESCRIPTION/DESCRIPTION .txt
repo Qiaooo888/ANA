@@ -1,0 +1,11 @@
+# 基础分析
+ana(iris, "Sepal.Length", "Species")
+
+# 自动分析所有变量
+ana(iris)
+
+# 可视化分析
+alook(iris, "Sepal.Length", "Species")
+
+# 批量分析
+avar(mtcars)
