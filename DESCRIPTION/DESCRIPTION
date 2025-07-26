@@ -1,11 +1,36 @@
-# 基础分析
-ana(iris, "Sepal.Length", "Species")
-
-# 自动分析所有变量
-ana(iris)
-
-# 可视化分析
-alook(iris, "Sepal.Length", "Species")
-
-# 批量分析
-avar(mtcars)
+Package: ana
+Type: Package
+Title: Data Analysis and Visualization Tools
+Version: 1.0.0
+Date: 2025-07-26
+Author: Qiaooo
+Maintainer: Qiaooo <a3404148141@gmail.com>
+Description: A comprehensive R package for exploratory data analysis and 
+    visualization. Provides three main functions: ana() for basic statistical 
+    analysis with automatic variable type detection and summary statistics, 
+    alook() for enhanced visualization including distribution plots and missing 
+    value analysis, and avar() for batch analysis of all variables with detailed 
+    type classification and data quality assessment. The package automatically 
+    handles various data types including numeric, factor, logical, character, 
+    date, and special values, with robust error handling and user-friendly 
+    Chinese output.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    tidyverse,
+    haven,
+    ggplot2,
+    dplyr,
+    scales
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+RoxygenNote: 7.2.0
+Language: zh-CN
+BugReports: https://github.com/qiaooo/ana/issues
+URL: https://github.com/qiaooo/ana
