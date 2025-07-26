@@ -30,6 +30,7 @@
 # 启动时运行
 .check_packages()
 
+
 # 辅助函数：增强的数据框验证（优化：更好地处理边界条件）
 validate_dataframe <- function(data, data_name_str, allow_empty = FALSE) {
   if (is.null(data)) {
