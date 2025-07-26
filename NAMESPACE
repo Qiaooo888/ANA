@@ -1,0 +1,11 @@
+export(ana)
+export(alook)
+export(avar)
+importFrom(tidyverse, tidyverse_packages)
+importFrom(haven, is.labelled)
+importFrom(ggplot2, ggplot, aes, geom_histogram, geom_bar, geom_boxplot, 
+           geom_jitter, geom_text, labs, theme_minimal, theme, 
+           element_text, element_blank, coord_flip, scale_fill_gradient,
+           scale_y_continuous, expansion)
+importFrom(dplyr, mutate, across, everything, filter, arrange, desc)
+importFrom(scales, hue_pal)
