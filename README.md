@@ -14,7 +14,7 @@ ana包是一个用R语言开发的简约数据分析工具，提供快速的数�
 ```r
 # 从GitHub安装
 # install.packages("devtools")
-devtools::install_github("你的用户名/ana-package")
+devtools::install_github("Qiaooo888/ana-package")
 
 # 或者直接下载源码
 source("ana.R")
