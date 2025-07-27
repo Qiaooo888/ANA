@@ -9,7 +9,7 @@
 #===================================  #━━╋══════➢ #===================================
 
 .check_packages <- function() {
-  # 明确列出所有依赖包，确保稳定性
+  # 明确列出所有依赖包
   packages <- c("haven", "ggplot2", "dplyr", "scales", "knitr", "rmarkdown")
   
   # 检查并安装缺失的包
@@ -33,8 +33,24 @@
   }
 }
 
-# 启动时运行
-.check_packages()
+# 包加载时自动执行（关键修改）
+.onAttach <- function(libname, pkgname) {
+  .check_packages()
+  
+  # 加载成功提示
+  packageStartupMessage("加载完成，ana工具包!!　发射----->!!!!
+　 ＿∧_∧＿＿＿/／
+≡(_ ( ･∀･)＿＿( 三三三三三● ● ● ● ● ● ● ->
+　　( ニつノ｜｜　＼
+　　ヽ_⌒|　｜｜
+　　し_(＿)   ｜｜
+　　　　　　¯¯¯")
+  
+  packageStartupMessage("\n可用函数:")
+  packageStartupMessage("  ana()   - 基础分析")
+  packageStartupMessage("  alook() - 可视化分析") 
+  packageStartupMessage("  avar()  - 所有变量分类")
+}
 
 #===================================  #━━╋══════➢ #===================================
 
@@ -996,15 +1012,15 @@ avar <- function(data_name) {
 }
 
 # 加载成功提示
-message("加载完成，ana工具包!!　发射----->!!!!
-　 ＿∧_∧＿＿＿/／
-≡(_ ( ･∀･)＿＿( 三三三三三● ● ● ● ● ● ● ->
-　　( ニつノ｜｜　＼
-　　ヽ_⌒|　｜｜
-　　し_(＿)   ｜｜
-　　　　　　¯¯¯")
+#message("加载完成，ana工具包!!　发射----->!!!!
+#　 ＿∧_∧＿＿＿/／
+#≡(_ ( ･∀･)＿＿( 三三三三三● ● ● ● ● ● ● ->
+#　　( ニつノ｜｜　＼
+#　　ヽ_⌒|　｜｜
+#　　し_(＿)   ｜｜
+#　　　　　　¯¯¯")
 
-cat("\n可用函数:\n")
-cat("  ana()   - 基础分析\n")
-cat("  alook() - 可视化分析\n") 
-cat("  avar()  - 所有变量分类\n")
+#cat("\n可用函数:\n")
+#cat("  ana()   - 基础分析\n")
+#cat("  alook() - 可视化分析\n") 
+#cat("  avar()  - 所有变量分类\n")
