@@ -1,6 +1,7 @@
-GPL-3 License
+GNU GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007
 
-Copyright (c) 2025 ana package authors
+Copyright (C) 2024 ana package authors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -9,23 +10,46 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
----
+================================================================================
 
-ana包采用GPL-3许可证
+The ana package for R: Comprehensive Data Analysis and Visualization Tools
 
-版权所有 (c) 2025 ana包作者
+Copyright (C) 2024 ana package authors
 
-本程序是自由软件：您可以根据自由软件基金会发布的GNU通用公共许可证
-（第3版或任何更高版本）重新分发和/或修改它。
+This package includes multiple components:
+- Core analysis functions (ana, alook, avar)
+- Survival time calculation functions with multiple optimized implementations
+- Visualization utilities based on ggplot2
 
-本程序的发布是希望它能有用，但不提供任何保证；甚至不提供适销性或
-特定用途适用性的默示保证。有关详细信息，请参阅GNU通用公共许可证。
+For the complete GPL-3 license text, visit:
+https://www.gnu.org/licenses/gpl-3.0.html
 
-您应该已经收到了本程序附带的GNU通用公共许可证副本。
-如果没有，请参见 <https://www.gnu.org/licenses/>。
+================================================================================
+
+ADDITIONAL TERMS:
+
+The ana package includes code that depends on other R packages, each with their
+own licenses:
+
+- ggplot2: MIT License
+- dplyr: MIT License
+- data.table: MPL-2.0
+- Rcpp: GPL (>= 2)
+- haven: MIT License
+- scales: MIT License
+
+Users must comply with the licenses of all dependencies when using this package.
+
+================================================================================
+
+CONTACT:
+
+For questions about this license or the ana package:
+- GitHub: https://github.com/username/ana
+- Email: your.email@example.com

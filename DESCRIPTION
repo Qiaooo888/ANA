@@ -1,37 +1,45 @@
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
 Package: ana
 Type: Package
-Title: Data Analysis and Visualization Tools
+Title: Comprehensive Data Analysis and Visualization Tools with Survival Analysis
 Version: 1.0.0
-Date: 2025-07-26
-Author: Qiaooo
-Maintainer: Qiaooo <a3404148141@gmail.com>
-Description: A comprehensive R package for exploratory data analysis and 
-    visualization. Provides three main functions: ana() for basic statistical 
-    analysis with automatic variable type detection and summary statistics, 
-    alook() for enhanced visualization including distribution plots and missing 
-    value analysis, and avar() for batch analysis of all variables with detailed 
-    type classification and data quality assessment. The package automatically 
-    handles various data types including numeric, factor, logical, character, 
-    date, and special values, with robust error handling and user-friendly 
-    Chinese output.
+Date: 2024-01-15
+Authors@R: c(
+    person("Your", "Name", email = "your.email@example.com", role = c("aut", "cre")),
+    person("Second", "Author", email = "second.author@example.com", role = "ctb"))
+Maintainer: Your Name <your.email@example.com>
+Description: Provides a comprehensive toolkit for exploratory data analysis in R, 
+    featuring automatic variable analysis, visualization, and multiple optimized 
+    implementations of survival time calculations. The package includes functions 
+    for basic statistical analysis (ana), automated visualization (alook), 
+    comprehensive variable overview (avar), and five different survival time 
+    calculation methods optimized for different use cases: standard, data.table-based, 
+    Rcpp-based, parallel processing, and memory-efficient versions.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports:
-    haven,
-    ggplot2,
-    dplyr,
-    scales,
-    knitr,
-    rmarkdown,
-Suggests:   
+    haven (>= 2.0.0),
+    ggplot2 (>= 3.0.0),
+    dplyr (>= 1.0.0),
+    scales (>= 1.0.0),
+    knitr (>= 1.20),
+    rmarkdown (>= 2.0),
+    stats,
+    utils,
+    grDevices,
+    graphics
+Suggests:
+    data.table (>= 1.12.0),
+    Rcpp (>= 1.0.0),
+    parallel,
+    foreach,
+    doParallel,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
-RoxygenNote: 7.2.0
-Language: zh-CN
-BugReports: https://github.com/Qiaooo888/ANA
-URL: https://github.com/Qiaooo888/ANA
+RoxygenNote: 7.2.3
+URL: https://github.com/username/ana
+BugReports: https://github.com/username/ana/issues
+Language: en-US, zh-CN
+NeedsCompilation: no
+SystemRequirements: C++11 (for Rcpp functions)

@@ -1,244 +1,379 @@
-# ana包 - 数据分析可视化工具包 📊 / ana Package - Data Analysis and Visualization Toolkit 📊
+# ana: R Package for Data Analysis and Visualization
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/ana)
-[![License](https://img.shields.io/badge/license-GPL--3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![R Version](https://img.shields.io/badge/R-%3E%3D%203.5.0-lightgrey.svg)](https://www.r-project.org/)
+## Overview
 
-## 🚀 简介 / Introduction
+The `ana` package provides a comprehensive toolkit for exploratory data analysis in R, featuring automatic variable analysis, visualization, and survival time calculations. The package includes both Chinese interface functions and optimized survival analysis utilities.
 
-**中文：** `ana` 是一个强大的R数据分析和可视化工具包，专为快速探索性数据分析而设计。它提供了简洁易用的函数，帮助您快速了解数据集的基本特征、变量分布和数据质量。
+## Installation
 
-**English:** `ana` is a powerful R data analysis and visualization toolkit designed specifically for rapid exploratory data analysis. It provides concise and user-friendly functions to help you quickly understand the basic characteristics, variable distributions, and data quality of your datasets.
+### Common Installation Issues
 
-### ✨ 主要特性 / Key Features
+Many users encounter the error `Error in library(ana) : there is no package called 'ana'` after installing from GitHub. This typically occurs because:
 
-| 中文 | English |
-|------|---------|
-| **自动化分析**：智能识别变量类型，自动选择合适的分析方法 | **Automated Analysis**: Intelligently identifies variable types and automatically selects appropriate analysis methods |
-| **可视化输出**：生成美观的统计图表，直观展示数据分布 | **Visual Output**: Generates beautiful statistical charts that intuitively display data distributions |
-| **批量处理**：支持同时分析多个变量，提高工作效率 | **Batch Processing**: Supports simultaneous analysis of multiple variables for improved efficiency |
-| **数据质量检查**：自动检测缺失值、异常值和数据类型问题 | **Data Quality Check**: Automatically detects missing values, outliers, and data type issues |
-| **中文友好**：完美支持中文输出和显示 | **Chinese-Friendly**: Perfect support for Chinese output and display |
+1. The package lacks proper R package structure
+2. Missing DESCRIPTION file
+3. No proper namespace configuration
 
-## 📦 安装 / Installation
+### Proper Installation Methods
 
-### 从GitHub安装（推荐）/ Install from GitHub (Recommended)
+#### Method 1: Source Installation (Recommended)
 
 ```r
-# 安装 devtools（如果尚未安装）/ Install devtools (if not already installed)
-install.packages("devtools")
+# Download the repository
+# Then source the main file directly:
+source("path/to/ana.R")
 
-# 从 GitHub 安装 ana 包 / Install ana package from GitHub
-devtools::install_github("Qiaooo888/ANA")
+# For survival time functions, source individually as needed:
+source("path/to/a_survival_time.R")
+source("path/to/a_survival_time_table.R")
+# etc.
 ```
 
-### 手动安装 / Manual Installation
+#### Method 2: Create Local Package Structure
 
-```r
-# 1. 下载源代码 / Download source code
-# 2. 在R中运行 / Run in R
-source("ana.R") ### <- <- <- <- <- <- <- <- ━━╋══════➢ ""号中填入R文件的保存位置 / Enter the save location of the R file in ""
+Create a proper package structure first:
+
+```bash
+ana/
+├── DESCRIPTION
+├── NAMESPACE
+├── R/
+│   ├── ana.R
+│   ├── a_survival_time.R
+│   ├── a_survival_time_table.R
+│   ├── a_survival_time_C++.R
+│   ├── a_survival_time_large.R
+│   └── a_survival_time_ram.R
+└── man/
 ```
 
-## 🎯 快速开始 / Quick Start
-
-```r
-# 加载包（会自动安装并加载依赖包）/ Load package (will automatically install and load dependencies)
-library(ana)
-
-# 示例数据 / Example data
-data(mtcars)
-
-# 基础分析 - 分析所有变量 / Basic analysis - analyze all variables
-ana(mtcars)
-
-# 分析指定变量 / Analyze specific variables
-ana(mtcars, "mpg", "cyl", "hp")
-
-# 可视化分析 / Visual analysis
-alook(mtcars, "mpg", "cyl")
-
-# 批量变量分类 / Batch variable classification
-avar(mtcars)
+Create `DESCRIPTION` file:
+```
+Package: ana
+Type: Package
+Title: Data Analysis and Visualization Tools
+Version: 1.0.0
+Author: Your Name
+Maintainer: Your Name <your.email@example.com>
+Description: Comprehensive toolkit for exploratory data analysis with automatic 
+    variable analysis, visualization, and survival time calculations.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    haven,
+    ggplot2,
+    dplyr,
+    scales,
+    knitr,
+    rmarkdown,
+    data.table,
+    parallel,
+    foreach,
+    doParallel,
+    Rcpp
+RoxygenNote: 7.2.3
 ```
 
-## 📖 函数说明 / Function Documentation
-
-### 1. `ana()` - 基础分析 / Basic Analysis
-
-**中文：** 对数据框进行基础统计分析，自动识别变量类型并提供相应的统计信息。
-
-**English:** Performs basic statistical analysis on data frames, automatically identifies variable types and provides corresponding statistical information.
-
-```r
-ana(data, ...)
+Create `NAMESPACE` file:
+```
+export(ana)
+export(alook)
+export(avar)
+export(a_survival_time_improved)
+export(a_survival_time_dt)
+export(a_survival_time_rcpp)
+export(a_survival_time_parallel)
+export(a_survival_time_memory)
 ```
 
-**参数 / Parameters:**
-- `data`：数据框 / Data frame
-- `...`：要分析的变量名（可选，默认分析前10个适合的变量）/ Variable names to analyze (optional, defaults to first 10 suitable variables)
-
-**输出 / Output:**
-- 变量基本信息表（类型、有效值、缺失值、取值范围）/ Basic variable information table (type, valid values, missing values, value range)
-- 连续变量统计量（均值、中位数、标准差等）/ Continuous variable statistics (mean, median, standard deviation, etc.)
-- 分类变量频数分布 / Categorical variable frequency distribution
-
-### 2. `alook()` - 可视化分析 / Visual Analysis
-
-**中文：** 在基础分析的基础上，生成数据分布的可视化图表。
-
-**English:** Based on basic analysis, generates visualizations of data distributions.
-
+Then install:
 ```r
-alook(data, ...)
+# Install from local directory
+install.packages("path/to/ana", repos = NULL, type = "source")
+
+# Or use devtools
+devtools::install("path/to/ana")
 ```
 
-**特性 / Features:**
-- 自动为不同类型变量选择合适的图表 / Automatically selects appropriate charts for different variable types
-- 连续变量：直方图、箱线图 / Continuous variables: Histograms, box plots
-- 分类变量：条形图 / Categorical variables: Bar charts
-- 缺失值比率图 / Missing value ratio charts
+## Dependencies
 
-### 3. `avar()` - 批量变量分类 / Batch Variable Classification
+The package requires the following R packages:
 
-**中文：** 对数据集中所有变量进行分类和汇总，提供数据质量评估。
+### Core Dependencies
+- `haven`: For reading SPSS/Stata/SAS files
+- `ggplot2`: For visualization
+- `dplyr`: For data manipulation
+- `scales`: For plot scales
+- `knitr`: For reporting
+- `rmarkdown`: For document generation
 
-**English:** Classifies and summarizes all variables in the dataset, providing data quality assessment.
+### Additional Dependencies for Survival Functions
+- `data.table`: For optimized data.table version
+- `Rcpp`: For C++ optimized version
+- `parallel`, `foreach`, `doParallel`: For parallel processing version
 
+Install all dependencies:
 ```r
-avar(data)
+install.packages(c("haven", "ggplot2", "dplyr", "scales", 
+                   "knitr", "rmarkdown", "data.table", 
+                   "Rcpp", "parallel", "foreach", "doParallel"))
 ```
 
-**输出 / Output:**
-- 所有变量的详细类型列表 / Detailed type list of all variables
-- 类型汇总统计 / Type summary statistics
-- 缺失值概览 / Missing value overview
-- 数据质量评分和建议 / Data quality score and recommendations
+## Main Functions
 
-## 🌟 使用示例 / Usage Examples
+### 1. `ana()` - Basic Analysis
 
-### 示例1：探索鸢尾花数据 / Example 1: Exploring Iris Data
+Performs comprehensive descriptive statistics on specified variables.
 
 ```r
-library(ana)
+# Analyze specific variables
+ana(mydata, "var1", "var2", "var3")
 
-# 加载数据 / Load data
+# Analyze all suitable variables (auto-selects up to 10)
+ana(mydata)
+```
+
+**Features:**
+- Automatic type detection (numeric, factor, character, logical, date)
+- Missing value analysis
+- Descriptive statistics for numeric variables
+- Frequency tables for categorical variables
+- Handles special values (Inf, NaN)
+
+### 2. `alook()` - Visual Analysis
+
+Creates automatic visualizations based on variable types.
+
+```r
+# Visualize specific variables
+alook(mydata, "var1", "var2")
+
+# Visualize all suitable variables
+alook(mydata)
+```
+
+**Visualizations:**
+- Missing value bar charts
+- Histograms for numeric variables
+- Box plots with jitter for small datasets
+- Bar charts for categorical variables
+
+### 3. `avar()` - All Variables Analysis
+
+Provides a comprehensive overview of all variables in the dataset.
+
+```r
+avar(mydata)
+```
+
+**Output includes:**
+- Variable type classification
+- Missing value summary
+- Data quality score
+- Single-value variable detection
+- Data quality recommendations
+
+## Survival Time Analysis Functions
+
+The package includes multiple optimized versions of survival time calculation:
+
+### 1. `a_survival_time_improved()` - Enhanced Base Version
+
+The main survival time calculation function with comprehensive error handling.
+
+```r
+# Basic usage
+result <- a_survival_time_improved(data, 
+                                   id_var = "patient_id",
+                                   time = "visit_time", 
+                                   event = "event_occurred",
+                                   check_order = TRUE,
+                                   verbose = TRUE)
+```
+
+**Parameters:**
+- `data`: Data frame containing the survival data
+- `id_var`: Column name for individual/subject ID
+- `time`: Column name for time variable
+- `event`: Column name for event indicator (0/1)
+- `check_order`: Check temporal ordering of observations
+- `verbose`: Print warnings and messages
+- `handle_negative_time`: Handle negative time values
+
+### 2. `a_survival_time_dt()` - data.table Optimized Version
+
+5-10x faster for large datasets using data.table.
+
+```r
+# Requires data.table package
+library(data.table)
+result <- a_survival_time_dt(data, 
+                             id_var = "patient_id",
+                             time = "visit_time", 
+                             event = "event_occurred")
+```
+
+### 3. `a_survival_time_rcpp()` - C++ Optimized Version
+
+10-20x faster using Rcpp for maximum performance.
+
+```r
+# Requires Rcpp package
+library(Rcpp)
+result <- a_survival_time_rcpp(data, 
+                               id_var = "patient_id",
+                               time = "visit_time", 
+                               event = "event_occurred")
+```
+
+### 4. `a_survival_time_parallel()` - Parallel Processing Version
+
+For very large datasets, uses multiple CPU cores.
+
+```r
+# Automatically detects cores
+result <- a_survival_time_parallel(data, 
+                                   id_var = "patient_id",
+                                   time = "visit_time", 
+                                   event = "event_occurred",
+                                   n_cores = 4)  # Optional
+```
+
+### 5. `a_survival_time_memory()` - Memory Optimized Version
+
+For memory-constrained environments, uses optimized data types.
+
+```r
+result <- a_survival_time_memory(data, 
+                                 id_var = "patient_id",
+                                 time = "visit_time", 
+                                 event = "event_occurred")
+```
+
+## Usage Examples
+
+### Example 1: Basic Data Analysis
+
+```r
+# Load sample data
 data(iris)
 
-# 基础分析 / Basic analysis
-ana(iris)
+# Basic analysis of specific variables
+ana(iris, "Sepal.Length", "Species")
 
-# 可视化分析特定变量 / Visual analysis of specific variables
+# Visual analysis
 alook(iris, "Sepal.Length", "Species")
 
-# 查看所有变量分类 / View all variable classifications
+# Analyze all variables
 avar(iris)
 ```
 
-### 示例2：处理包含缺失值的数据 / Example 2: Handling Data with Missing Values
+### Example 2: Survival Analysis
 
 ```r
-# 创建包含缺失值的示例数据 / Create sample data with missing values
-test_data <- data.frame(
-  x = c(1:8, NA, NA),
-  y = c(NA, 2:10),
-  group = factor(c("A", "B", "A", "B", NA, "A", "B", "A", "B", "A"))
+# Create sample survival data
+survival_data <- data.frame(
+  patient_id = rep(1:100, each = 5),
+  visit_time = rep(0:4, 100) + runif(500, -0.1, 0.1),
+  event = rbinom(500, 1, 0.1)
 )
 
-# 分析会自动处理缺失值 / Analysis automatically handles missing values
-ana(test_data)
-alook(test_data)
+# Calculate survival times
+result <- a_survival_time_improved(survival_data,
+                                   id_var = "patient_id",
+                                   time = "visit_time",
+                                   event = "event")
+
+# For large datasets, use optimized versions
+result_fast <- a_survival_time_dt(survival_data,
+                                  id_var = "patient_id",
+                                  time = "visit_time",
+                                  event = "event")
 ```
 
-### 示例3：大型数据集分析 / Example 3: Large Dataset Analysis
+## Troubleshooting
 
+### Issue: Package not found after GitHub installation
+
+**Solution 1:** Use source() instead of library()
 ```r
-# 对于大型数据集，可以选择性分析 / For large datasets, selective analysis is possible
-library(ana)
-
-# 假设有一个1000列的大数据集 / Assume a large dataset with 1000 columns
-# big_data <- your_large_dataset
-
-# 只分析特定变量 / Analyze only specific variables
-# ana(big_data, "var1", "var2", "var3")
-
-# 查看所有变量的分类（会自动分页显示）/ View classification of all variables (automatically paginated)
-# avar(big_data)
+source("ana.R")
+# Now functions are available directly
+ana(mydata)
 ```
 
-## 🛠️ 高级功能 / Advanced Features
+**Solution 2:** Create proper package structure (see Installation section)
 
-### 自动处理特殊数据类型 / Automatic Handling of Special Data Types
+### Issue: Dependencies not automatically installed
 
-| 中文 | English |
-|------|---------|
-| **Haven标签数据**：自动清除SPSS/Stata/SAS导入的标签 | **Haven labeled data**: Automatically clears labels imported from SPSS/Stata/SAS |
-| **日期时间**：正确识别和分析日期型变量 | **Date-time**: Correctly identifies and analyzes date variables |
-| **复杂数据类型**：处理列表列、复数等特殊类型 | **Complex data types**: Handles list columns, complex numbers, and other special types |
+**Solution:** Manually install all dependencies
+```r
+# Check and install missing packages
+required_packages <- c("haven", "ggplot2", "dplyr", "scales", 
+                      "knitr", "rmarkdown", "data.table", "Rcpp")
+missing_packages <- required_packages[!required_packages %in% installed.packages()[,"Package"]]
+if(length(missing_packages) > 0) {
+  install.packages(missing_packages)
+}
+```
 
-### 数据质量评估 / Data Quality Assessment
+### Issue: Rcpp functions not working
 
-**中文：** `avar()` 函数提供综合的数据质量评分（0-100分），考虑因素包括：
-- 缺失值比例
-- 单一值变量数量
-- 数据完整性
+**Solution:** Ensure Rcpp is properly installed and configured
+```r
+# Test Rcpp
+install.packages("Rcpp")
+library(Rcpp)
+evalCpp("2 + 2")  # Should return 4
+```
 
-**English:** The `avar()` function provides a comprehensive data quality score (0-100), considering factors including:
-- Missing value ratio
-- Number of single-value variables
-- Data completeness
+### Issue: Parallel functions not working on Windows
 
-## 📋 依赖包 / Dependencies
+**Solution:** Windows requires special handling for parallel processing
+```r
+# On Windows, use:
+library(parallel)
+cl <- makeCluster(detectCores() - 1)
+# ... your code ...
+stopCluster(cl)
+```
 
-**中文：** ana包会自动安装和加载以下依赖：
+## Performance Comparison
 
-**English:** The ana package will automatically install and load the following dependencies:
+| Function | Relative Speed | Best Use Case |
+|----------|---------------|---------------|
+| `a_survival_time_improved` | 1x (baseline) | Small datasets, full features |
+| `a_survival_time_dt` | 5-10x | Medium to large datasets |
+| `a_survival_time_rcpp` | 10-20x | Large datasets, speed critical |
+| `a_survival_time_parallel` | Varies | Very large datasets, multi-core systems |
+| `a_survival_time_memory` | 0.8x | Memory-constrained environments |
 
-- `haven`：读取SPSS/Stata/SAS文件 / Read SPSS/Stata/SAS files
-- `ggplot2`：数据可视化 / Data visualization
-- `dplyr`：数据处理 / Data processing
-- `scales`：图表刻度 / Chart scales
-- `knitr`：报告生成 / Report generation
-- `rmarkdown`：文档输出 / Document output
+## Contributing
 
-## 🤝 贡献 / Contributing
+Feel free to submit issues, fork the repository, and create pull requests for any improvements.
 
-**中文：** 欢迎提交问题报告和功能建议！
+## License
 
-**English:** Welcome to submit issue reports and feature suggestions!
+GPL-3
 
-1. Fork 本仓库 / Fork this repository
-2. 创建您的特性分支 / Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 / Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 / Push to the branch (`git push origin feature/AmazingFeature`)
-5. 开启一个 Pull Request / Open a Pull Request
+## Notes
 
-## 📄 许可证 / License
+- The package automatically loads required dependencies on attach
+- Chinese characters in function output may require proper encoding settings
+- For best performance with large datasets, use the optimized survival time functions
+- The visualization functions (alook) work best with datasets under 10,000 rows
 
-**中文：** 本项目采用 GPL-3 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+## Citation
 
-**English:** This project is licensed under the GPL-3 License - see the [LICENSE](LICENSE) file for details
-
-## 👥 作者 / Authors
-
-- **Qiaooo888** - *Initial work* - [Qiaooo888](https://github.com/yourusername)
-
-## 🙏 致谢 / Acknowledgments
-
-**中文：** 感谢所有为这个项目做出贡献的人！
-
-**English:** Thanks to everyone who has contributed to this project!
-
----
-
-**加载完成，ana工具包!! 发射----->!!!!**  
-**Loading complete, ana toolkit!! Launch----->!!!!**
+If you use this package in your research, please cite:
 
 ```
-　 ＿∧_∧＿＿＿/／
-≡(_ ( ･∀･)＿＿( 三三三三三● ● ● ● ● ● ● ->
-　　( ニつノ｜｜　＼
-　　ヽ_⌒|　｜｜
-　　し_(＿)   ｜｜
-　　　　　　¯¯¯
+@Manual{,
+  title = {ana: Data Analysis and Visualization Tools for R},
+  author = {Author Name},
+  year = {2024},
+  note = {R package version 1.0.0},
+  url = {https://github.com/username/ana},
+}
 ```

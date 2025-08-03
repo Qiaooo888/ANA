@@ -1,18 +1,63 @@
-# Export main functions
+# Export main analysis functions
 export(ana)
 export(alook)
 export(avar)
 
-# Import from dependencies
-import(ggplot2)
-import(dplyr)
-import(haven)
-import(scales)
+# Export survival time functions
+export(a_survival_time_improved)
+export(a_survival_time_dt)
+export(a_survival_time_rcpp)
+export(a_survival_time_parallel)
+export(a_survival_time_memory)
+
+# Export helper functions that users might need
+export(validate_dataframe)
+export(remove_labels)
+export(get_mode)
+export(safe_stat)
+export(safe_format)
+export(check_time_order)
+export(calculate_survival_vectorized)
+
+# Import from base R packages
+importFrom(stats, median, sd, quantile, na.omit)
+importFrom(utils, head, tail, installed.packages, install.packages)
+importFrom(grDevices, colorRampPalette, hcl)
+importFrom(graphics, plot)
+
+# Import from required packages
+importFrom(haven, is.labelled)
+importFrom(ggplot2, ggplot, aes, geom_bar, geom_histogram, geom_boxplot, 
+           geom_jitter, geom_text, labs, theme_minimal, theme, element_text,
+           element_blank, coord_flip, scale_y_continuous, scale_fill_gradient,
+           expansion, after_stat)
+importFrom(dplyr, mutate, across, everything, filter, arrange, "%>%")
+importFrom(scales, hue_pal)
 importFrom(knitr, kable)
 importFrom(rmarkdown, render)
 
-# Import base R functions that are used
-importFrom(graphics, plot)
-importFrom(stats, median, sd, na.omit)
-importFrom(utils, installed.packages, install.packages, head, tail)
-importFrom(grDevices, colorRampPalette)
+# Conditional imports (for Suggests packages)
+# These are not required but used when available
+if(requireNamespace("data.table", quietly = TRUE)) {
+  importFrom(data.table, as.data.table, setnames, setkey, setorder, ":=", .I, .N)
+}
+
+if(requireNamespace("Rcpp", quietly = TRUE)) {
+  importFrom(Rcpp, cppFunction, evalCpp)
+}
+
+if(requireNamespace("parallel", quietly = TRUE)) {
+  importFrom(parallel, detectCores, makeCluster, stopCluster)
+}
+
+if(requireNamespace("foreach", quietly = TRUE)) {
+  importFrom(foreach, foreach, "%dopar%")
+}
+
+if(requireNamespace("doParallel", quietly = TRUE)) {
+  importFrom(doParallel, registerDoParallel)
+}
+
+# S3 method registrations (if any)
+# S3method(print, ana_result)
+# S3method(summary, ana_result)

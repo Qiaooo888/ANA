@@ -1,0 +1,32 @@
+citHeader("To cite the ana package in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "ana: Comprehensive Data Analysis and Visualization Tools with Survival Analysis",
+  author   = personList(as.person("Your Name"),
+                       as.person("Second Author")),
+  year     = "2024",
+  note     = "R package version 1.0.0",
+  url      = "https://github.com/username/ana",
+  textVersion = paste("Your Name and Second Author (2024).",
+                     "ana: Comprehensive Data Analysis and Visualization Tools with Survival Analysis.",
+                     "R package version 1.0.0.",
+                     "https://github.com/username/ana")
+)
+
+citEntry(
+  entry    = "Article",
+  title    = "Efficient Survival Time Calculation Methods for Longitudinal Data in R",
+  author   = personList(as.person("Your Name"),
+                       as.person("Second Author")),
+  journal  = "Journal of Statistical Software",
+  year     = "2024",
+  volume   = "XX",
+  number   = "X",
+  pages    = "1--25",
+  url      = "https://www.jstatsoft.org/vXX/iXX/",
+  textVersion = paste("Your Name and Second Author (2024).",
+                     "Efficient Survival Time Calculation Methods for Longitudinal Data in R.",
+                     "Journal of Statistical Software, XX(X), 1-25.",
+                     "URL https://www.jstatsoft.org/vXX/iXX/.")
+)
